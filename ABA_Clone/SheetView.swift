@@ -1,10 +1,3 @@
-//
-//  SheetView.swift
-//  ABA_Clone
-//
-//  Created by Eang Kimlong on 9/9/25.
-//
-
 import SwiftUI
 import PhotosUI
 import Foundation
@@ -19,7 +12,6 @@ let bgImage = [
     BackgroundImageUrl(bgUrl: "Sunset", title: "Sunset Lover"),
 ]
 let textLabel = ["Themes", "Dark Mode", "Homescreen"]
-
 
 struct SheetView: View {
     @State private var selected : [UUID : Bool] = [:]
@@ -56,7 +48,7 @@ struct SheetView: View {
             .frame(height: 100)
             
             ScrollView(.horizontal, showsIndicators: false){
-                LazyHStack{
+                LazyHStack(spacing: 15){
                     ForEach(bgImage){ items in
                         VStack{
                             Button(action:{
@@ -78,25 +70,9 @@ struct SheetView: View {
                         }
                     }
                     
-                    VStack{
-                        VStack{
-                            Image(systemName: "plus")
-                                .resizable()
-                                .frame(width: 100, height: 100)
-                                .foregroundStyle(Color(.systemGray))
-                        }
-                        .frame(width: 140, height: 230)
-                        .cornerRadius(20)
-                        .overlay{
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.blue,style: StrokeStyle(lineWidth: 3, dash: [4,4]))
-                        }
-                        Text("Add Image")
-                            .font(.title3)
-                            .foregroundStyle(Color.black)
-                    }
-                    
+                    .padding(.horizontal, 8)
                 }
+                .padding(.horizontal)
             }
             .onAppear {
                 // restore background when app launches
@@ -108,12 +84,10 @@ struct SheetView: View {
             .frame(height: 280)
         }
         .preferredColorScheme(.light)
-        
     }
 }
 
-
-//#Preview {
-//    @StateObject  var v : BackgroundImageManager = BackgroundImageManager()
-//    SheetView(bgChanger: v)
-//}
+#Preview {
+    @StateObject var v : BackgroundImageManager = BackgroundImageManager()
+    SheetView(bgChanger: v)
+}
